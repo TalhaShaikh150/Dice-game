@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice Game</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #474545;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      height: 100vh;
+    }
+
+    .players {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      gap: 50px;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: white;
+    }
+
+    .dice-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      width: 100%;
+    }
+
+    .player {
+      text-align: center;
+    }
+
+    .dice {
+      border-radius: 20px;
+      max-width: 150px;
+      transition: 0.6s all ease;
+      box-shadow: 0px 1px 20px black;
+    }
+
+    .btn {
+      width: 200px;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #960909;
+      transition: 0.6s all ease;
+    }
+
+    .btn:active {
+      background-color: #061460;
+    }
+
+    .score-label {
+      font-size: 1.2em;
+      color: white;
+      margin-top: 10px;
+    }
+    #player-1{
+      margin-bottom: 10px;
+    }
+    #player-2{
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .dice-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .players {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="players">
+      <div class="player">
+        <p id="player-1">Player 1</p>
+        <img src="images/dice1.png" class="dice" id="dice1" alt="Dice 1">
+      </div>
+      <div class="player">
+        <p id="player-2">Player 2</p>
+        <img src="images/dice1.png" class="dice" id="dice2" alt="Dice 2">
+      </div>
+    </div>
+
+    <p id="dice-number" class="score-label">Roll the Dice</p>
+    <p id="score" class="score-label">Score: 0</p>
+
+    <button class="btn" onclick="Roll()">Roll Dice</button>
+    <button class="btn" onclick="editName()">Edit Name</button>
+  </div>
+
+  <script>
+  
+    const Dice1 = document.getElementById('dice1');
+    const Dice2 = document.getElementById('dice2');
+    const DiceNumber = document.getElementById('dice-number');
+    let Score = document.getElementById('score');
+
+    let currentScore = 0;
+
+    function Roll() {
+      let random1 = Math.floor(Math.random() * 6) + 1;
+      let random2 = Math.floor(Math.random() * 6) + 1;
+
+      DiceNumber.innerHTML = `You rolled ${random1} and ${random2}`;
+      Dice1.src = `images/dice${random1}.png`;
+      Dice2.src = `images/dice${random2}.png`;
+
+      if (random1 === random2) {
+        currentScore++;
+        Score.innerHTML = `Score: ${currentScore}`;
+        
+        if (currentScore >= 5) {
+          alert("You Win!");
+          currentScore = 0;
+          Score.innerHTML = `Score: ${currentScore}`;
+        }
+      }
+    }
+    
+    const Player1 = document.getElementById('player-1')
+    const Player2 = document.getElementById('player-2')
+
+    function editName(){
+      let player1 = prompt("Enter Player 1 Name")
+      let player2 = prompt("Enter Player 2 Name")
+
+      Player1.innerHTML = player1
+      Player2.innerHTML = player2
+    }
+  </script>
+
+</body>
+</html>
